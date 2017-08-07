@@ -1,7 +1,12 @@
 {
   "name": "minecraftshire-jsapi",
-  "version": "2.0",
+  "version": "2.0.0",
   "dependencies": {
-
+    "npm-run-all": "^4.0.2"
+  },
+  "scripts": {
+    "push": "git push",
+    "publish": "npm publish",
+    "start": "npm-run-all -p push publish"
   }
 }
