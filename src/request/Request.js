@@ -21,20 +21,20 @@ export default {
         params = Object.assign({}, this.defaultParams, params);
         params.authToken = payload.authToken || params.authToken;
 
-        url = `${params.backendUrl}${url}`;
+        url = params.backendUrl + url;
 
         if (params.auth) {
             payload.authToken = params.authToken;
         }
 
-        return new Promise((resolve, reject) => {
+        return new Promise(function(resolve, reject) {
             const xhr = new XMLHttpRequest();
 
             xhr.open('POST', url, true);
             xhr.withCredentials = true;
             xhr.send();
 
-            xhr.onreadystatechange = () => {
+            xhr.onreadystatechange = function() {
                 if (xhr.readyState !== 4) {
                     return;
                 }

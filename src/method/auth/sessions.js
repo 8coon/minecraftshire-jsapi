@@ -1,9 +1,11 @@
-import Request from '../../request/request';
+import Request from '../../request/Request';
 
 /**
  * @return {Promise<object>}
  */
 export default function sessions() {
     return Request.call('auth/sessions', {}, {auth: true})
-        .then(xhr => JSON.parse(xhr.responseText));
+        .then(function(xhr) {
+            return JSON.parse(xhr.responseText);
+        });
 }

@@ -12,7 +12,7 @@ Object.assign(Model.prototype, {
      * @return {*}
      */
     get(attr) {
-        if (this[attr] === undefined) {
+        if (this[attr] === void 0) {
             return false;
         }
 

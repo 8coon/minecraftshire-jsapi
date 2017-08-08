@@ -1,4 +1,4 @@
-import Request from '../../request/request';
+import Request from '../../request/Request';
 
 /**
  * @param {string} username
@@ -6,5 +6,9 @@ import Request from '../../request/request';
  * @param {string} email
  */
 export default function create(username, password, email) {
-    return Request.call('user/create', {username, email, password}, {auth: false});
+    return Request.call(
+        'user/create',
+        {username: username, email: email, password: password},
+        {auth: false}
+    );
 }

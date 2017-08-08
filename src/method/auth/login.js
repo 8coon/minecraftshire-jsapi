@@ -1,4 +1,4 @@
-import Request from '../../request/request';
+import Request from '../../request/Request';
 
 /**
  * @param {string} username
@@ -6,7 +6,15 @@ import Request from '../../request/request';
  * @return {Promise<string|object>}
  */
 export default function login(username, password) {
-    return Request.call('auth/login', {username, password}, {auth: false})
-        .then(xhr => JSON.parse(xhr.responseText).authToken)
-        .catch(xhr => JSON.parse(xhr.responseText));
+    return Request.call(
+        'auth/login',
+        {username: username, password: password},
+        {auth: false}
+    ).then(function(xhr) {
+        Request.defaultParams.authToken = JSON.parse(xhr.responseText).authToken;
+
+        return Request.defaultParams.authToken
+    }).catch(function(xhr) {
+        return JSON.parse(xhr.responseText);
+    });
 }
