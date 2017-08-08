@@ -1,9 +1,10 @@
 
-export default class Model {
 
-    constructor() {
-    }
+function Model() {
+}
 
+
+Object.assign(Model.prototype, {
 
     /**
      * Get model attribute
@@ -16,7 +17,7 @@ export default class Model {
         }
 
         return this[attr];
-    }
+    },
 
 
     /**
@@ -26,6 +27,9 @@ export default class Model {
      */
     set(attr, value) {
         this[attr] = value;
-    }
+    },
 
-}
+});
+
+
+export default Model;

@@ -1,24 +1,24 @@
 
-class RequestParams {
-    backendUrl = 'https://minecraftshire.ru/api/';
-    authToken = '';
-    auth = true;
-}
+export const RequestParams = {
+    backendUrl: 'https://minecraftshire.ru/api/',
+    authToken: '',
+    auth: true,
+};
 
 
-export default class Request {
+export default {
 
-    static defaultParams = new RequestParams();
+    defaultParams: RequestParams,
 
     /**
      * Make request to backend
      * @param {string} url
      * @param {object} payload
-     * @param {RequestParams | {}} params
+     * @param {*} params
      * @return {Promise}
      */
-    static call(url, payload, params = {}) {
-        params = Object.assign({}, Request.defaultParams, params);
+    call(url, payload, params = {}) {
+        params = Object.assign({}, this.defaultParams, params);
         params.authToken = payload.authToken || params.authToken;
 
         url = `${params.backendUrl}${url}`;
@@ -47,6 +47,6 @@ export default class Request {
                 reject(xhr);
             }
         });
-    }
+    },
 
 }
