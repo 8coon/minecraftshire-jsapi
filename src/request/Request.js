@@ -17,7 +17,7 @@ export default {
      * @param {*} params
      * @return {Promise}
      */
-    call: function(url, payload, params = {}) {
+    call: function(url, payload, params) {
         params = Object.assign({}, this.defaultParams, params);
         params.authToken = payload.authToken || params.authToken;
 
