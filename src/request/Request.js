@@ -70,7 +70,7 @@ export default {
      * @param {string|null} handlerName = 'handleEvent'
      * @param {string|null} key listener identifier.
      */
-    on(type, listener, handlerName, key) {
+    on: function(type, listener, handlerName, key) {
         this.listeners[type] = this.listeners[type] || [];
         this.listeners[type].push({
             key: key || listener,
@@ -85,7 +85,7 @@ export default {
      * @param {string} type
      * @param {function|object|string} listener
      */
-    off(type, listener) {
+    off: function(type, listener) {
         var listeners = this.listeners[type];
         if (!listeners) return;
 
@@ -105,7 +105,7 @@ export default {
      * @param {string} type
      * @param {object} details
      */
-    emit(type, details) {
+    emit: function(type, details) {
         var listeners = this.listeners[type];
         if (!listeners) return;
 
