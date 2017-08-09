@@ -32,7 +32,7 @@ export default {
 
             xhr.open('POST', url, true);
             xhr.withCredentials = true;
-            xhr.send();
+            xhr.send(JSON.stringify(payload));
 
             xhr.onreadystatechange = function() {
                 if (xhr.readyState !== 4) {
