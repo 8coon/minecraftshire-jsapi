@@ -11,10 +11,14 @@ export default function login(username, password) {
         {username: username, password: password},
         {auth: false}
     ).then(function(xhr) {
-        Request.defaultParams.authToken = JSON.parse(xhr.responseText).authToken;
+        var body = JSON.parse(xhr.responseText);
+        Request.defaultParams.authToken = body.authToken;
 
-        return Request.defaultParams.authToken
+        return body;
     }).catch(function(xhr) {
-        return JSON.parse(xhr.responseText);
+        return {
+            status: xhr.status,
+            body: xhr.responseText.length > 0 ? JSON.parse(xhr.responseText) : null,
+        }
     });
 }
