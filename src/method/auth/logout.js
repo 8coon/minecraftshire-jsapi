@@ -9,11 +9,5 @@ export default function logout() {
             Request.defaultParams.authToken = '';
 
             return xhr;
-        })
-        .catch(function(xhr) {
-            return {
-                status: xhr.status,
-                body: xhr.responseText.length > 0 ? JSON.parse(xhr.responseText) : null,
-            }
         });
 }

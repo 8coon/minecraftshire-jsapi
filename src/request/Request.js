@@ -57,7 +57,11 @@ export default {
                 }
 
                 _this.emit(RequestEvent.ERROR, {xhr: xhr, request: _this, payload: payload});
-                reject(xhr);
+
+                reject({
+                    status: xhr.status,
+                    body: xhr.responseText.length > 0 ? JSON.parse(xhr.responseText) : null,
+                });
             }
         });
     },

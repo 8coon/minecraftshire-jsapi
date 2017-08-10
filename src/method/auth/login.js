@@ -15,10 +15,5 @@ export default function login(username, password) {
         Request.defaultParams.authToken = body.authToken;
 
         return body;
-    }).catch(function(xhr) {
-        return {
-            status: xhr.status,
-            body: xhr.responseText.length > 0 ? JSON.parse(xhr.responseText) : null,
-        }
     });
 }
