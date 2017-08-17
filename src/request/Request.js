@@ -1,7 +1,7 @@
 
 export var RequestParams = {
     backendUrl: 'https://minecraftshire.ru/api/',
-    authToken: '',
+    authToken: null,
     auth: true,
 };
 
@@ -18,6 +18,16 @@ export default {
     defaultParams: RequestParams,
     listeners: {},
 
+    getCachedAuthToken: function() {
+        var localStorage = window.localStorage;
+        if (!localStorage) return null;
+
+        var username = localStorage.getItem('username');
+        if (!username) return null;
+
+        return localStorage.getItem(username + ':authToken');
+    },
+
     /**
      * Make request to backend
      * @param {string} url
@@ -32,7 +42,7 @@ export default {
         url = params.backendUrl + url;
 
         if (params.auth) {
-            payload.authToken = params.authToken;
+            payload.authToken = params.authToken || this.getCachedAuthToken();
         }
 
         var _this = this;
