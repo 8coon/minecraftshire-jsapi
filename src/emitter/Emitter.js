@@ -1,6 +1,6 @@
 import Symbol from 'es6-symbol';
 
-const listeners = Symbol('listeners');
+const listeners = Symbol.for('listeners');
 
 function Emitter() {
 }
