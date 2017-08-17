@@ -2,7 +2,7 @@
 export var RequestParams = {
     backendUrl: 'https://minecraftshire.ru/api/',
     authToken: null,
-    auth: true,
+    auth: false,
 };
 
 
@@ -37,12 +37,12 @@ export default {
      */
     call: function(url, payload, params) {
         params = Object.assign({}, this.defaultParams, params);
-        params.authToken = payload.authToken || params.authToken;
+        params.authToken = payload.authToken || params.authToken || this.getCachedAuthToken();
 
         url = params.backendUrl + url;
 
         if (params.auth) {
-            payload.authToken = params.authToken || this.getCachedAuthToken();
+            payload.authToken = params.authToken;
         }
 
         var _this = this;
