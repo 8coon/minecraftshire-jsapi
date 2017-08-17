@@ -40,7 +40,7 @@ Object.assign(Emitter.prototype, {
 
         for (var i = 0; i < listeners.length; i++) {
             if (listener === listeners[i]) {
-                delete listeners[i];
+                listeners.splice(i, 1);
                 break;
             }
         }
