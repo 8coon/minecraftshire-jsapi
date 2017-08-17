@@ -7,10 +7,10 @@ import Notification from '../../models/Notification/Notification'
 
 /*
  */
-export default function status() {
+export default function status(lastModified) {
     return Request.call(
         'user/status',
-        {},
+        {lastModified: lastModified},
         {auth: true}
     ).then(function(xhr) {
         var data = JSON.parse(xhr.responseText);
