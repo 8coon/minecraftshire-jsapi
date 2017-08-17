@@ -58,9 +58,12 @@ Object.assign(Model.prototype, {
      * @return {Model}
      */
     apply: function(fields) {
+        var _this = this;
+
         Object.keys(fields).forEach(function(key) {
-            this.set(key, fields[key]);
+            _this.set(key, fields[key]);
         });
+
         return this;
     },
 
