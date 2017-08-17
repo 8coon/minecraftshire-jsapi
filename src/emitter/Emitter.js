@@ -1,7 +1,5 @@
 import Symbol from 'es6-symbol';
 
-const listeners = Symbol.for('listeners');
-
 function Emitter() {
 }
 
@@ -17,9 +15,11 @@ Object.assign(Emitter.prototype, {
      * @param {string|null} key listener identifier.
      */
     $on: function(type, listener, handlerName, key) {
-        this[listeners] = this[listeners] || [];
-        this[listeners][type] = this[listeners][type] || [];
-        this[listeners][type].push({
+        var _listeners = Symbol.for('listeners');
+
+        this[_listeners] = this[_listeners] || [];
+        this[_listeners][type] = this[_listeners][type] || [];
+        this[_listeners][type].push({
             key: key || listener,
             handlerName: handlerName,
             listener: listener,
@@ -32,8 +32,10 @@ Object.assign(Emitter.prototype, {
      * @param {function|object|string} listener
      */
     $off: function(type, listener) {
-        this[listeners] = this[listeners] || [];
-        var listeners = this[listeners][type];
+        var _listeners = Symbol.for('listeners');
+
+        this[_listeners] = this[_listeners] || [];
+        var listeners = this[_listeners][type];
         if (!listeners) return;
 
         for (var i = 0; i < listeners.length; i++) {
@@ -43,7 +45,7 @@ Object.assign(Emitter.prototype, {
             }
         }
 
-        if (listeners.length === 0) delete this[listeners][type];
+        if (listeners.length === 0) delete this[_listeners][type];
     },
 
     /**
@@ -52,8 +54,9 @@ Object.assign(Emitter.prototype, {
      * @param {object} details
      */
     $emit: function(type, details) {
-        this[listeners] = this[listeners] || [];
-        var listeners = this[listeners][type];
+        var _listeners = Symbol.for('listeners');
+
+        var listeners = this[_listeners][type];
         if (!listeners) return;
 
         var event = {
