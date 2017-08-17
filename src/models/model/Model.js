@@ -1,6 +1,7 @@
 
 
 function Model() {
+    Object.setPrototypeOf(Object.getPrototypeOf(this), Model.prototype);
 }
 
 
