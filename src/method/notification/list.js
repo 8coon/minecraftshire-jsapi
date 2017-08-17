@@ -13,6 +13,6 @@ export default function list() {
         {},
         {auth: true}
     ).then(function(xhr) {
-        return new ModelList().set(JSON.parse(xhr.responseText), {type: Notification});
+        return (new ModelList()).set(JSON.parse(xhr.responseText), {type: Notification});
     });
 }

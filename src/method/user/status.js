@@ -15,7 +15,7 @@ export default function status() {
     ).then(function(xhr) {
         var data = JSON.parse(xhr.responseText);
 
-        return new User()
+        return (new User())
             .apply(data)
             .set('notifications', new ModelList().set(data.notifications, {type: Notification}));
     })
