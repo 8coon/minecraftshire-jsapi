@@ -1,3 +1,6 @@
+import Symbol from 'es6-symbol';
+
+const listeners = new Symbol('listeners');
 
 function Emitter() {
 }
@@ -14,8 +17,9 @@ Object.assign(Emitter.prototype, {
      * @param {string|null} key listener identifier.
      */
     $on: function(type, listener, handlerName, key) {
-        this.listeners[type] = this.listeners[type] || [];
-        this.listeners[type].push({
+        this[listeners] = this[listeners] || [];
+        this[listeners][type] = this[listeners][type] || [];
+        this[listeners][type].push({
             key: key || listener,
             handlerName: handlerName,
             listener: listener,
@@ -28,7 +32,8 @@ Object.assign(Emitter.prototype, {
      * @param {function|object|string} listener
      */
     $off: function(type, listener) {
-        var listeners = this.listeners[type];
+        this[listeners] = this[listeners] || [];
+        var listeners = this[listeners][type];
         if (!listeners) return;
 
         for (var i = 0; i < listeners.length; i++) {
@@ -38,7 +43,7 @@ Object.assign(Emitter.prototype, {
             }
         }
 
-        if (listeners.length === 0) delete this.listeners[type];
+        if (listeners.length === 0) delete this[listeners][type];
     },
 
     /**
@@ -47,7 +52,8 @@ Object.assign(Emitter.prototype, {
      * @param {object} details
      */
     $emit: function(type, details) {
-        var listeners = this.listeners[type];
+        this[listeners] = this[listeners] || [];
+        var listeners = this[listeners][type];
         if (!listeners) return;
 
         var event = {

@@ -1,4 +1,7 @@
 {
   "name": "minecraftshire-jsapi",
-  "version": "2.0.36"
+  "version": "2.0.37",
+  "dependencies": {
+    "es6-symbol": "^3.1.1"
+  }
 }
