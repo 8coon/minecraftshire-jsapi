@@ -155,8 +155,9 @@ Object.assign(ModelList.prototype, {
             var model = list.getByIndex ? list.getByIndex(i) : list[i];
 
             if (typeof options.type === 'function') {
-                model = new (0, options.type)();
-                model = model.apply(model);
+                var _model = new (0, options.type)();
+                _model = _model.apply(model);
+                model = _model;
             }
 
             this.add(model, options.append === 'push');
@@ -177,12 +178,17 @@ Object.assign(ModelList.prototype, {
      */
     add: function(model, push) {
         var pk = model.getPk();
-        this.byPk[pk] === (void 0) && this.length++;
+        var unique = this.byPk[pk] === (void 0);
+        unique && this.length++;
 
-        if (push) {
-            this.models.push(model);
+        if (unique) {
+            if (push) {
+                this.models.push(model);
+            } else {
+                this.models.unshift(model);
+            }
         } else {
-            this.models.unshift(model);
+            this.models[this.models.indexOf(this.byPk[pk])] = model;
         }
 
         this.byPk[pk] = model;
