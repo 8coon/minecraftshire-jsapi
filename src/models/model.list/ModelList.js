@@ -155,7 +155,8 @@ Object.assign(ModelList.prototype, {
             var model = list.getByIndex ? list.getByIndex(i) : list[i];
 
             if (typeof options.type === 'function') {
-                model = (new (options.type)()).apply(model);
+                model = new (0, options.type)();
+                model = model.apply(model);
             }
 
             this.add(model, options.append === 'push');
