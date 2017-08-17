@@ -16,8 +16,8 @@ Object.assign(Emitter.prototype, {
      */
     $on: function(type, listener, handlerName, key) {
         var _listeners = Symbol.for('listeners');
-
         this[_listeners] = this[_listeners] || [];
+
         this[_listeners][type] = this[_listeners][type] || [];
         this[_listeners][type].push({
             key: key || listener,
@@ -33,8 +33,8 @@ Object.assign(Emitter.prototype, {
      */
     $off: function(type, listener) {
         var _listeners = Symbol.for('listeners');
-
         this[_listeners] = this[_listeners] || [];
+
         var listeners = this[_listeners][type];
         if (!listeners) return;
 
@@ -55,6 +55,7 @@ Object.assign(Emitter.prototype, {
      */
     $emit: function(type, details) {
         var _listeners = Symbol.for('listeners');
+        this[_listeners] = this[_listeners] || [];
 
         var listeners = this[_listeners][type];
         if (!listeners) return;
