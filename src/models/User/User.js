@@ -5,7 +5,7 @@ import ModelList from '../model.list/ModelList';
 function User() {
     Model.apply(this);
 
-    this.username = '';
+    this.username = null;
     this.email = null;
     this.totalBalance = 0;
     this.freeBalance = 0;
@@ -14,6 +14,11 @@ function User() {
 
 
 Object.assign(User.prototype, {
+
+    getPk() {
+        return this.get('username');
+    }
+
 });
 
 

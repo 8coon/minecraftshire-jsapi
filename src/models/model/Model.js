@@ -35,11 +35,20 @@ Object.assign(Model.prototype, {
     },
 
     /**
+     * Determine whether attribute is truthy
+     * @param attr
+     * @return {boolean}
+     */
+    is(attr) {
+        return this.get(attr) == true;
+    },
+
+    /**
      * Get model primary key
      * @return {*}
      */
     getPk() {
-        return this.has('id') ? this.get('id') : this.get('username');
+        return this.get('id');
     },
 
     /**

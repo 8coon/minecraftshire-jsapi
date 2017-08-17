@@ -71,6 +71,24 @@ Object.assign(ModelList.prototype, {
     },
 
     /**
+     * Filter models by condition in callback and return new collection
+     * @param callback
+     * @param thisArg
+     * @return {ModelList}
+     */
+    filter: function(callback, thisArg) {
+        var models = new ModelList();
+
+        for (var i = 0; i < this.models.length; i++) {
+            if (callback.call(thisArg, this.models[i], i, this.models)) {
+                models.add(this.models[i], true);
+            }
+        }
+
+        return models;
+    },
+
+    /**
      * @param callback
      * @param thisArg
      * @return {Array}
