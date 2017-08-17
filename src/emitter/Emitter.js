@@ -39,7 +39,7 @@ Object.assign(Emitter.prototype, {
         if (!listeners) return;
 
         for (var i = 0; i < listeners.length; i++) {
-            if (listener === listeners[i]) {
+            if (listener === listeners[i].key) {
                 listeners.splice(i, 1);
                 break;
             }
