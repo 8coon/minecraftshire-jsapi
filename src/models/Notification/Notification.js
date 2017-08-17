@@ -16,11 +16,11 @@ function Notification() {
 
 Object.assign(Notification.prototype, {
 
-    getCreatedAt() {
+    getCreatedAt: function() {
         return Date.parse(this.get('createdAt'));
     },
 
-    setCreatedAt(date) {
+    setCreatedAt: function(date) {
         this.set('createdAt', date.toISOString());
     },
 
