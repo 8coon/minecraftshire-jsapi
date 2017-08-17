@@ -17,7 +17,13 @@ function Notification() {
 Object.assign(Notification.prototype, {
 
     getCreatedAt: function() {
-        return Date.parse(this.get('createdAt'));
+        var timestamp = Date.parse(this.get('createdAt'));
+
+        if (isNaN(timestamp)) {
+            timestamp = 1;
+        }
+
+        return new Date(timestamp);
     },
 
     setCreatedAt: function(date) {
