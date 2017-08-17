@@ -1,9 +1,11 @@
+import Emitter from '../../emitter/Emitter';
+import setPrototype from '../../utils/setPrototype';
 
 
 function Model() {
-    Object.setPrototypeOf(Object.getPrototypeOf(this), Model.prototype);
+    Emitter.apply(this);
+    setPrototype(this, Model.prototype);
 }
-
 
 Object.assign(Model.prototype, {
 
@@ -70,6 +72,5 @@ Object.assign(Model.prototype, {
     },
 
 });
-
 
 export default Model;

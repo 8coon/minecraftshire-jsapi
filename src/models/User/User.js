@@ -15,7 +15,7 @@ function User() {
 
 Object.assign(User.prototype, {
 
-    getPk() {
+    getPk: function() {
         return this.get('username');
     }
 
