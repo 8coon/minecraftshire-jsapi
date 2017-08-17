@@ -20,9 +20,11 @@ Object.assign(Model.prototype, {
      * Set model attribute
      * @param {string} attr
      * @param {*} value
+     * @return {Model}
      */
     set: function(attr, value) {
         this[attr] = value;
+        return this;
     },
 
     /**
