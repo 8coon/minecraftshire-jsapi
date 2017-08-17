@@ -55,7 +55,7 @@ var Request = {
             xhr.setRequestHeader('Content-Type', 'application/json');
             xhr.withCredentials = true;
             xhr.send(JSON.stringify(payload));
-            _this.emit(RequestEvent.SEND, {xhr: xhr, request: _this, payload: payload});
+            _this.$emit(RequestEvent.SEND, {xhr: xhr, request: _this, payload: payload});
 
             xhr.onreadystatechange = function() {
                 if (xhr.readyState !== 4) {
@@ -63,12 +63,12 @@ var Request = {
                 }
 
                 if (xhr.status < 300) {
-                    _this.emit(RequestEvent.SUCCESS, {xhr: xhr, request: _this, payload: payload});
+                    _this.$emit(RequestEvent.SUCCESS, {xhr: xhr, request: _this, payload: payload});
                     resolve(xhr);
                     return;
                 }
 
-                _this.emit(RequestEvent.ERROR, {xhr: xhr, request: _this, payload: payload});
+                _this.$emit(RequestEvent.ERROR, {xhr: xhr, request: _this, payload: payload});
 
                 reject({
                     status: xhr.status,
