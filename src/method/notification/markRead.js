@@ -7,7 +7,7 @@ import Request from '../../request/Request';
 export default function markRead(ids) {
     return Request.call(
         'notification/mark_read',
-        {ids: ids},
+        {values: ids},
         {auth: true}
     );
 }
