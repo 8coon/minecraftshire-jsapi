@@ -125,7 +125,7 @@ Object.assign(ModelList.prototype, {
      * Clears model list
      * @return {ModelList}
      */
-    clear() {
+    clear: function() {
         this.byPk = {};
         this.models = [];
         this.length = 0;
@@ -212,7 +212,7 @@ Object.assign(ModelList.prototype, {
      * @param end
      * @return {ModelList}
      */
-    slice(start, end) {
+    slice: function(start, end) {
         var modelList = new ModelList();
         modelList.models = this.models.slice(start, end);
 
