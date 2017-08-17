@@ -14,6 +14,8 @@ function Notification() {
     this.unread = null;
 }
 
+Notification.prototype = Object.create(Model.prototype);
+
 Object.assign(Notification.prototype, {
 
     getCreatedAt: function() {

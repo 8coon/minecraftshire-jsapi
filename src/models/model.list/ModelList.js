@@ -1,11 +1,15 @@
+import Emitter from '../../emitter/Emitter';
 
 
 function ModelList() {
+    Emitter.apply(this);
+
     this.byPk = {};
     this.models = [];
     this.length = 0;
 }
 
+ModelList.prototype = Object.create(Emitter.prototype);
 
 Object.assign(ModelList.prototype, {
 

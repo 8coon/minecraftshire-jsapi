@@ -12,6 +12,7 @@ function User() {
     this.notifications = new ModelList();
 }
 
+User.prototype = Object.create(Model.prototype);
 
 Object.assign(User.prototype, {
 

@@ -1,9 +1,8 @@
-import setPrototype from '../utils/setPrototype';
-
 
 function Emitter() {
-    setPrototype(this, Emitter.prototype);
 }
+
+Emitter.prototype = Object.create({});
 
 Object.assign(Emitter.prototype, {
 

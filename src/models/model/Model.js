@@ -1,11 +1,11 @@
 import Emitter from '../../emitter/Emitter';
-import setPrototype from '../../utils/setPrototype';
 
 
 function Model() {
     Emitter.apply(this);
-    setPrototype(this, Model.prototype);
 }
+
+Model.prototype = Object.create(Emitter.prototype, {});
 
 Object.assign(Model.prototype, {
 

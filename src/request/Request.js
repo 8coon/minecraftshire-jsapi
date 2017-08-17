@@ -81,4 +81,6 @@ var Request = {
 };
 
 Emitter.apply(Request);
+Object.setPrototypeOf(Request, Emitter.prototype);
+
 export default Request;
