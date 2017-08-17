@@ -11,7 +11,7 @@ Object.assign(Model.prototype, {
      * @param {string} attr
      * @return {*}
      */
-    get(attr) {
+    get: function(attr) {
         return this[attr];
     },
 
@@ -20,7 +20,7 @@ Object.assign(Model.prototype, {
      * @param {string} attr
      * @param {*} value
      */
-    set(attr, value) {
+    set: function(attr, value) {
         this[attr] = value;
     },
 
@@ -29,7 +29,7 @@ Object.assign(Model.prototype, {
      * @param attr
      * @return {boolean}
      */
-    has(attr) {
+    has: function(attr) {
         var value = this[attr];
         return value !== null && value !== (void 0);
     },
@@ -39,7 +39,7 @@ Object.assign(Model.prototype, {
      * @param attr
      * @return {boolean}
      */
-    is(attr) {
+    is: function(attr) {
         return this.get(attr) == true;
     },
 
@@ -47,7 +47,7 @@ Object.assign(Model.prototype, {
      * Get model primary key
      * @return {*}
      */
-    getPk() {
+    getPk: function() {
         return this.get('id');
     },
 
@@ -56,7 +56,7 @@ Object.assign(Model.prototype, {
      * @param fields
      * @return {Model}
      */
-    apply(fields) {
+    apply: function(fields) {
         Object.keys(fields).forEach(function(key) {
             this.set(key, fields[key]);
         });
