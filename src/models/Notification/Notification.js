@@ -25,7 +25,7 @@ Notification.prototype = Object.create(Model.prototype);
 Object.assign(Notification.prototype, {
 
     getCreatedAt: function() {
-        if (this.has('reatedAt')) {
+        if (this.has('createdAt')) {
             return parseDateTime(this.get('createdAt'));
         }
 
