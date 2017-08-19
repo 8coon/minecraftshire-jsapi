@@ -1,7 +1,7 @@
 import Model from '../model/Model';
 
 
-var TZ_TIMESTAMP_OFFSET = 60 * 1000;
+var TZ_TIMESTAMP_OFFSET = -60 * 1000;
 
 
 function Notification() {
