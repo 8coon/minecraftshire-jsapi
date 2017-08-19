@@ -1,4 +1,4 @@
-import Emitter from '../../emitter/Emitter';
+import Emitter from 'minecraftshire-utils/src/emitter/Emitter';
 
 
 function ModelList() {
