@@ -1,6 +1,6 @@
 {
   "name": "minecraftshire-jsapi",
-  "version": "2.0.51",
+  "version": "2.0.52",
   "dependencies": {
     "minecraftshire-utils": "2.0.2"
   }
