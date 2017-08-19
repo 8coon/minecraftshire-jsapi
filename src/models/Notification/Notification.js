@@ -1,7 +1,7 @@
 import Model from '../model/Model';
 
 
-var TZ_TIMESTAMP_OFFSET = -60 * 1000;
+var TZ_TIMESTAMP_OFFSET = 60 * 60 * 1000;
 
 
 function Notification() {
@@ -43,7 +43,7 @@ Object.assign(Notification.prototype, {
         }
 
         var date = new Date(timestamp);
-        date.setTime(date.getTime() + parseInt(tz, 10) * TZ_TIMESTAMP_OFFSET);
+        date.setTime(date.getTime() - parseInt(tz, 10) * TZ_TIMESTAMP_OFFSET);
 
         return date;
     },
