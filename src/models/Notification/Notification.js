@@ -1,6 +1,9 @@
 import Model from '../model/Model';
 
 
+var TZ_TIMESTAMP_OFFSET = 60 * 1000;
+
+
 function Notification() {
     Model.apply(this);
 
@@ -19,13 +22,30 @@ Notification.prototype = Object.create(Model.prototype);
 Object.assign(Notification.prototype, {
 
     getCreatedAt: function() {
-        var timestamp = Date.parse(this.get('createdAt'));
+        var dateStr = this.get('createdAt');
+
+        if (!dateStr || typeof dateStr !== 'string') {
+            return new Date(1);
+        }
+
+        // For Safari
+        dateStr = dateStr.replace(' ', 'T');
+
+        // Get timestamp without timezone and timezone offset
+        var i = dateStr.lastIndexOf('-');
+        var dateNoTz = dateStr.substring(0, i);
+        var tz = dateStr.substring(i);
+
+        var timestamp = Date.parse(dateNoTz);
 
         if (isNaN(timestamp)) {
             timestamp = 1;
         }
 
-        return new Date(timestamp);
+        var date = new Date(timestamp);
+        date.setTime(date.getTime() + parseInt(tz, 10) * TZ_TIMESTAMP_OFFSET);
+
+        return date;
     },
 
     setCreatedAt: function(date) {
