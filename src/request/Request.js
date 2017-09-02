@@ -74,8 +74,8 @@ var Request = {
                 xhr.setRequestHeader('Content-Type', 'multipart/form-data');
                 var formData = new FormData();
 
-                Object.keys(payload).forEach(function(key, value) {
-                    formData.append(key, value);
+                Object.keys(payload).forEach(function(key) {
+                    formData.append(key, payload[key]);
                 });
 
                 payloadData = formData;
