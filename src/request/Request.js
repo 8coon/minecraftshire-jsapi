@@ -62,7 +62,7 @@ var Request = {
                     return;
                 }
 
-                if (xhr.status < 300) {
+                if (xhr.status && xhr.status < 300) {
                     _this.$emit(RequestEvent.SUCCESS, {xhr: xhr, request: _this, payload: payload});
                     resolve(xhr);
                     return;
