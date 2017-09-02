@@ -4,14 +4,17 @@ import Emitter from 'minecraftshire-utils/src/emitter/Emitter';
 export var RequestParams = {
     backendUrl: 'https://minecraftshire.ru/api/',
     authToken: null,
-    auth: false,
+    auth: false,  // Adds auth token to request payload
+    form: false,  // Sends payload as FormData
 };
 
 
 export var RequestEvent = {
+    BEFORE_SEND: 'before_send',
     SEND: 'send',
     ERROR: 'error',
     SUCCESS: 'success',
+    PROGRESS: 'progress',
 };
 
 
@@ -48,14 +51,39 @@ var Request = {
         }
 
         var _this = this;
-        return new Promise(function(resolve, reject) {
+        var promise = new Promise(function(resolve, reject) {
             var xhr = new XMLHttpRequest();
 
             xhr.open('POST', url, true);
             xhr.setRequestHeader('Content-Type', 'application/json');
             xhr.withCredentials = true;
-            xhr.send(JSON.stringify(payload));
-            _this.$emit(RequestEvent.SEND, {xhr: xhr, request: _this, payload: payload});
+
+            _this.$emit(RequestEvent.BEFORE_SEND, {xhr: xhr, request: _this, payload: payload, promise: promise});
+
+            xhr.upload.onprogress = function(evt) {
+                _this.$emit(RequestEvent.PROGRESS, {
+                    xhr: xhr,
+                    request: _this,
+                    payload: payload,
+                    promise: promise,
+                    loaded: evt.loaded,
+                    total: evt.total
+                });
+            };
+
+            if (params.form) {
+                var formData = new FormData();
+
+                Object.keys(payload).forEach(function(key, value) {
+                    formData.append(key, value);
+                });
+
+                xhr.send(formData);
+            } else {
+                xhr.send(JSON.stringify(payload));
+            }
+
+            _this.$emit(RequestEvent.SEND, {xhr: xhr, request: _this, payload: payload, promise: promise});
 
             xhr.onreadystatechange = function() {
                 if (xhr.readyState !== 4) {
@@ -63,12 +91,12 @@ var Request = {
                 }
 
                 if (xhr.status && xhr.status < 300) {
-                    _this.$emit(RequestEvent.SUCCESS, {xhr: xhr, request: _this, payload: payload});
+                    _this.$emit(RequestEvent.SUCCESS, {xhr: xhr, request: _this, payload: payload, promise: promise});
                     resolve(xhr);
                     return;
                 }
 
-                _this.$emit(RequestEvent.ERROR, {xhr: xhr, request: _this, payload: payload});
+                _this.$emit(RequestEvent.ERROR, {xhr: xhr, request: _this, payload: payload, promise: promise});
 
                 reject({
                     status: xhr.status,
@@ -76,6 +104,8 @@ var Request = {
                 });
             }
         });
+
+        return promise;
     },
 
 };
