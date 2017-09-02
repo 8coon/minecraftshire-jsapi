@@ -88,7 +88,8 @@ var Request = {
                 xhr: xhr,
                 request: _this,
                 payload: payload,
-                payloadData: payloadData, promise: promise
+                payloadData: payloadData,
+                promise: promise
             });
 
             xhr.send(payloadData);
