@@ -55,10 +55,7 @@ var Request = {
             var xhr = new XMLHttpRequest();
 
             xhr.open('POST', url, true);
-            xhr.setRequestHeader('Content-Type', 'application/json');
             xhr.withCredentials = true;
-
-            _this.$emit(RequestEvent.BEFORE_SEND, {xhr: xhr, request: _this, payload: payload, promise: promise});
 
             xhr.upload.onprogress = function(evt) {
                 _this.$emit(RequestEvent.PROGRESS, {
@@ -71,19 +68,37 @@ var Request = {
                 });
             };
 
+            var payloadData;
+
             if (params.form) {
+                xhr.setRequestHeader('Content-Type', 'multipart/form-data');
                 var formData = new FormData();
 
                 Object.keys(payload).forEach(function(key, value) {
                     formData.append(key, value);
                 });
 
-                xhr.send(formData);
+                payloadData = formData;
             } else {
-                xhr.send(JSON.stringify(payload));
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                payloadData = JSON.stringify(payload);
             }
 
-            _this.$emit(RequestEvent.SEND, {xhr: xhr, request: _this, payload: payload, promise: promise});
+            _this.$emit(RequestEvent.BEFORE_SEND, {
+                xhr: xhr,
+                request: _this,
+                payload: payload,
+                payloadData: payloadData, promise: promise
+            });
+
+            xhr.send(payloadData);
+
+            _this.$emit(RequestEvent.SEND, {
+                xhr: xhr,
+                request: _this,
+                payload: payload,
+                promise: promise
+            });
 
             xhr.onreadystatechange = function() {
                 if (xhr.readyState !== 4) {
@@ -91,12 +106,23 @@ var Request = {
                 }
 
                 if (xhr.status && xhr.status < 300) {
-                    _this.$emit(RequestEvent.SUCCESS, {xhr: xhr, request: _this, payload: payload, promise: promise});
+                    _this.$emit(RequestEvent.SUCCESS, {
+                        xhr: xhr,
+                        request: _this,
+                        payload: payload,
+                        promise: promise
+                    });
+
                     resolve(xhr);
                     return;
                 }
 
-                _this.$emit(RequestEvent.ERROR, {xhr: xhr, request: _this, payload: payload, promise: promise});
+                _this.$emit(RequestEvent.ERROR, {
+                    xhr: xhr,
+                    request: _this,
+                    payload: payload,
+                    promise: promise
+                });
 
                 reject({
                     status: xhr.status,
