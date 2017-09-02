@@ -71,7 +71,6 @@ var Request = {
             var payloadData;
 
             if (params.form) {
-                xhr.setRequestHeader('Content-Type', 'multipart/form-data');
                 var formData = new FormData();
 
                 Object.keys(payload).forEach(function(key) {
