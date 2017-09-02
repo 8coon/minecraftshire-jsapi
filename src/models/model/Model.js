@@ -1,8 +1,19 @@
 import Emitter from 'minecraftshire-utils/src/emitter/Emitter';
+import randomString from 'minecraftshire-utils/src/random/randomString';
+
+var ids = {};
 
 
 function Model() {
     Emitter.apply(this);
+
+    var id = randomString();
+
+    while (ids[id]) {
+        id = randomString();
+    }
+
+    this.id = id;
 }
 
 Model.prototype = Object.create(Emitter.prototype, {});
