@@ -15,6 +15,7 @@ function Character() {
     this.lastName = null;
     this.owner = null;
     this.isOnline = null;
+    this.isFavorite = null;
     this.createdAt = null;
     this.skinUrl = null;
 }
