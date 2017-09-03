@@ -1,6 +1,6 @@
 {
   "name": "minecraftshire-jsapi",
-  "version": "2.2.9b",
+  "version": "2.2.10",
   "dependencies": {
     "minecraftshire-utils": "https://github.com/8coon/minecraftshire-utils.git#2.4.1c"
   }
