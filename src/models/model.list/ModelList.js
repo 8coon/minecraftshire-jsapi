@@ -225,11 +225,15 @@ Object.assign(ModelList.prototype, {
      * @return {ModelList}
      */
     slice: function(start, end) {
+        start = start || 0;
+        end = end || this.length;
+
         var modelList = new ModelList();
         modelList.models = this.models.slice(start, end);
+        modelList.length = modelList.models.length;
 
         for (var i = 0; i < modelList.models.length; i++) {
-            modelList.models.byPk[modelList.models[i].getPk()] = modelList.models[i];
+            modelList.byPk[modelList.models[i].getPk()] = modelList.models[i];
         }
 
         return modelList;
