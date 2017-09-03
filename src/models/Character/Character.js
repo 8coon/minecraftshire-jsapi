@@ -32,7 +32,7 @@ Object.assign(Character.prototype, {
         return new Date(1);
     },
 
-    getSkinFullUrl() {
+    getSkinFullUrl: function() {
         var skinUrl = this.get('skinUrl');
 
         if (!skinUrl) {
