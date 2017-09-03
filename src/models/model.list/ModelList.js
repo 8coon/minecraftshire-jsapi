@@ -149,6 +149,7 @@ Object.assign(ModelList.prototype, {
      *  - type: model class to mame instance of.
      */
     set: function(list, options) {
+        list = list || [];
         options.append = options.append || 'push';
 
         if (!options.merge) {
